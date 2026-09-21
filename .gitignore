@@ -1,0 +1,15 @@
+# Archivos de configuración local del usuario (cada editor tiene su propia ruta)
+config.bat
+
+# Videos descargados y temporales
+*.mp4
+*.mkv
+*.webm
+*.m4a
+*.mp3
+*.part
+*.ytdl
+
+# Logs y cachés
+*.log
+__pycache__/
