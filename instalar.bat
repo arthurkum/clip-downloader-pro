@@ -9,13 +9,13 @@ echo                    Desarrollado por @arturoeditor
 echo ====================================================================
 echo.
 echo Este asistente instalara las herramientas necesarias para descargar
-echo videos de Instagram, TikTok y YouTube en maxima calidad sin marcas de agua.
+echo videos de YouTube, Instagram y TikTok en maxima calidad sin marcas de agua.
 echo.
 echo Presiona cualquier tecla para comenzar la instalacion...
 pause >nul
 echo.
 
-:: 1. Verificar e instalar Python / yt-dlp / ffmpeg / curl_cffi
+:: 1. Verificar e instalar Python / yt-dlp / ffmpeg / Deno / curl_cffi
 echo [*] Paso 1/3: Verificando herramientas del sistema...
 
 where winget >nul 2>nul
@@ -30,6 +30,15 @@ if %ERRORLEVEL% neq 0 (
     winget install -e --id Gyan.FFmpeg --accept-source-agreements --accept-package-agreements
 ) else (
     echo [OK] FFmpeg ya esta instalado.
+)
+
+:: Verificar Deno (motor JavaScript necesario para YouTube)
+where deno >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+    echo [*] Instalando Deno (motor JS para resolver firmas y bloqueos de YouTube)...
+    winget install -e --id DenoLand.Deno --scope user --accept-source-agreements --accept-package-agreements
+) else (
+    echo [OK] Deno ya esta instalado.
 )
 
 :: Verificar Python
