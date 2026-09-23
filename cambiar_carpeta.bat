@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-title Cambiar Carpeta de Descarga | @arturoeditor
+title Cambiar Carpeta de Descarga - @arturoeditor
 color 0E
 
 echo ====================================================================

@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-title Instalador - Descargador de Clips | Por @arturoeditor
+title Instalador - Descargador de Clips - Por @arturoeditor
 color 0B
 
 echo ====================================================================

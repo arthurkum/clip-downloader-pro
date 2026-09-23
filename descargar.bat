@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-title Descargador de Clips | Hecho por @arturoeditor
+title Descargador de Clips - Hecho por @arturoeditor
 color 0A
 
 :: Asegurar que Deno y dependencias esten en el PATH si existen en WinGet
@@ -22,6 +22,7 @@ if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 
 :inicio
 cls
+set "URL="
 echo ====================================================================
 echo             DESCARGADOR DE CLIPS EN CALIDAD MAXIMA
 echo                   Hecho por @arturoeditor
@@ -34,10 +35,11 @@ echo (Para cambiar la carpeta de guardado, ejecuta "cambiar_carpeta.bat")
 echo.
 set /p "URL=>> Pega el enlace aqui (o presiona ENTER sin escribir nada para salir): "
 
+if not defined URL goto salir
 if "%URL%"=="" goto salir
 
 echo.
-echo ¿Que deseas descargar?
+echo Formato de descarga:
 echo [1] Video en Maxima Calidad (.mp4 para CapCut/Premiere) [ENTER]
 echo [2] Solo Audio / Musica (.mp3 en alta calidad)
 set "FORMAT_CHOICE=1"
