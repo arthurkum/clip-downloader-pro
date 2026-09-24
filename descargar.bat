@@ -49,12 +49,12 @@ if "%FORMAT_CHOICE%"=="2" (
     echo.
     echo [*] Extrayendo audio en alta calidad MP3...
     echo.
-    yt-dlp --no-playlist -x --audio-format mp3 --audio-quality 0 --remote-components ejs:github --windows-filenames -P "%OUTPUT_DIR%" -o "%%(uploader)s_%%(title).30s_%%(id)s.%%(ext)s" --no-warnings "%URL%"
+    yt-dlp --no-playlist -x --audio-format mp3 --audio-quality 0 --extractor-args "youtube:player_client=web_embedded,web_safari,android,ios,mweb" --remote-components ejs:github --windows-filenames -P "%OUTPUT_DIR%" -o "%%(uploader)s_%%(title).30s_%%(id)s.%%(ext)s" --no-warnings "%URL%"
 ) else (
     echo.
     echo [*] Obteniendo video a maxima tasa de bits sin re-comprimir...
     echo.
-    yt-dlp --no-playlist -f "bestvideo+bestaudio/best" --merge-output-format mp4 --remux-video mp4 -S "vcodec:h264,res,fps,acodec:aac" --remote-components ejs:github --windows-filenames -P "%OUTPUT_DIR%" -o "%%(uploader)s_%%(title).30s_%%(id)s.%%(ext)s" --no-warnings "%URL%"
+    yt-dlp --no-playlist -f "bestvideo+bestaudio/best" --merge-output-format mp4 --remux-video mp4 -S "vcodec:h264,res,fps,acodec:aac" --extractor-args "youtube:player_client=web_embedded,web_safari,android,ios,mweb" --remote-components ejs:github --windows-filenames -P "%OUTPUT_DIR%" -o "%%(uploader)s_%%(title).30s_%%(id)s.%%(ext)s" --no-warnings "%URL%"
 )
 
 if %ERRORLEVEL% equ 0 (
