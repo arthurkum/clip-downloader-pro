@@ -54,61 +54,56 @@ if /i "%URL%"=="R" (
 )
 
 echo.
-echo Â¿Que deseas hacer?
+echo Que deseas hacer?
 echo [1] Video en Maxima Calidad (.mp4 para CapCut/Premiere) [ENTER]
 echo [2] Solo Audio / Musica (.mp3 en alta calidad)
 echo [3] Enviar a otra carpeta especifica (ej: Emojis, Recursos, B-Roll)
 set "CHOICE=1"
 set /p "CHOICE=>> Elige [1, 2 o 3] (Default 1): "
 
-:: Opcion 3: Carpeta personalizada
-if "%CHOICE%"=="3" (
-    echo.
-    echo ====================================================================
-    echo             SELECCION DE CARPETA ESPECIFICA
-    echo ====================================================================
-    set /p "CUSTOM_DIR=>> Pega o escribe la ruta de la carpeta de destino: "
-    
-    :: Si no escribio nada, usar la actual
-    if not defined CUSTOM_DIR set "CUSTOM_DIR=%CURRENT_DIR%"
-    
-    :: Limpiar comillas
-    set "CUSTOM_DIR=%CUSTOM_DIR:"=%"
-    if not exist "%CUSTOM_DIR%" mkdir "%CUSTOM_DIR%"
-    set "TARGET_DIR=%CUSTOM_DIR%"
-    
-    echo.
-    echo Â¿Deseas mantener esta carpeta para los siguientes enlaces de esta sesion?
-    echo [S] Si, mantener para los siguientes (ideal para paquetes/packs)
-    echo [N] No, solo para este archivo (Default N)
-    set "MANTENER=N"
-    set /p "MANTENER=>> [S/N]: "
-    
-    if /i "%MANTENER%"=="S" (
-        set "CURRENT_DIR=%CUSTOM_DIR%"
-    )
-    
-    echo.
-    echo Â¿Que formato deseas para este archivo?
-    echo [1] Video en Maxima Calidad (.mp4) [ENTER]
-    echo [2] Solo Audio / Musica (.mp3)
-    set "SUB_CHOICE=1"
-    set /p "SUB_CHOICE=>> Elige [1 o 2] (Default 1): "
-    
-    if "%SUB_CHOICE%"=="2" (
-        goto descargar_audio
-    ) else (
-        goto descargar_video
-    )
-)
+if "%CHOICE%"=="3" goto opcion_carpeta_personalizada
+if "%CHOICE%"=="2" goto descargar_audio_default
 
 set "TARGET_DIR=%CURRENT_DIR%"
+goto descargar_video
 
-if "%CHOICE%"=="2" (
-    goto descargar_audio
-) else (
-    goto descargar_video
+:descargar_audio_default
+set "TARGET_DIR=%CURRENT_DIR%"
+goto descargar_audio
+
+:opcion_carpeta_personalizada
+echo.
+echo ====================================================================
+echo             SELECCION DE CARPETA ESPECIFICA
+echo ====================================================================
+set /p "CUSTOM_DIR=>> Pega o escribe la ruta de la carpeta de destino: "
+
+if not defined CUSTOM_DIR set "CUSTOM_DIR=%CURRENT_DIR%"
+set "CUSTOM_DIR=%CUSTOM_DIR:"=%"
+
+if not exist "%CUSTOM_DIR%" mkdir "%CUSTOM_DIR%" 2>nul
+set "TARGET_DIR=%CUSTOM_DIR%"
+
+echo.
+echo Deseas mantener esta carpeta para los siguientes enlaces de esta sesion?
+echo [S] Si, mantener para los siguientes (ideal para paquetes/packs)
+echo [N] No, solo para este archivo (Default N)
+set "MANTENER=N"
+set /p "MANTENER=>> [S/N]: "
+
+if /i "%MANTENER%"=="S" (
+    set "CURRENT_DIR=%CUSTOM_DIR%"
 )
+
+echo.
+echo Formato para este archivo:
+echo [1] Video en Maxima Calidad (.mp4) [ENTER]
+echo [2] Solo Audio / Musica (.mp3)
+set "SUB_CHOICE=1"
+set /p "SUB_CHOICE=>> Elige [1 o 2] (Default 1): "
+
+if "%SUB_CHOICE%"=="2" goto descargar_audio
+goto descargar_video
 
 :descargar_audio
 echo.
